@@ -55,7 +55,7 @@ jobs:
           path: target/reports
 
       - name: Upload Surefire reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: surefire-reports
           path: target/surefire-reports
