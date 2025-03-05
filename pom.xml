@@ -19,6 +19,17 @@
         <maven.surefire.report.plugin.version>3.5.2</maven.surefire.report.plugin.version>
     </properties>
 
+    <developers>
+        <developer>
+            <name>Enric Negre</name>
+            <email>enric.negre@grifols.com</email>
+            <organization>Diagnostic Grifols, S.A.</organization>
+            <roles>
+                <role>DevOps</role>
+            </roles>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
