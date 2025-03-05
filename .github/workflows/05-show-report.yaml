@@ -1,0 +1,42 @@
+name: Run Playwright Tests with Cache and Display Report
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-playwright-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build & Install
+        run: mvn -B install -D skipTests --no-transfer-progress
+
+      - name: Install Playwright Browsers
+        run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+
+      - name: Run Playwright tests
+        run: mvn test
+
+      - name: Display Test Report
+        uses: phoenix-actions/test-reporting@v15
+        with:
+          path: target/reports/surefire.html
