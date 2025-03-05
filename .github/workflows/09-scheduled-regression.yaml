@@ -2,7 +2,8 @@ name: Scheduled Regression Tests
 
 on:
   schedule:
-    - cron: '0 1 * * 1-5'
+#    - cron: '0 1 * * 1-5'
+    - cron: '38 12 * * *'
 
 jobs:
   run-playwright-tests:
