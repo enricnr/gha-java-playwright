@@ -1,30 +1,15 @@
-name: Process Playwright Test Results
-description: A custom action to process Playwright test results and format a summary for GitHub job summaries.
-
-inputs:
-  report-file:
-    description: 'Path to the test results file'
-    required: true
-    default: 'test-results/report.txt'
+name: Playwright Summary
+description: "Formats Playwright test results for better readability"
+author: "Christian Baumann"
 
 runs:
-  using: 'composite'
-  steps:
-    - name: Read test results
-      id: read-results
-      run: |
-        if [ -f "${{ inputs.report-file }}" ]; then
-          results=$(cat "${{ inputs.report-file }}")
-          echo "results<<EOF" >> $GITHUB_ENV
-          echo "$results" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-        else
-          echo "Test results file not found: ${{ inputs.report-file }}"
-          exit 1
-      shell: bash
+  using: "composite"
 
-    - name: Format summary
+  steps:
+    - name: Format test results
+      # Reads the test report file and appends its content to GitHub job summary.
       run: |
-        echo "## Playwright Test Results" >> $GITHUB_STEP_SUMMARY
-        echo "$results" >> $GITHUB_STEP_SUMMARY
+        echo "### Playwright Test Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        cat test-results/report.txt | awk '{print "- **" $0 "**"}' >> $GITHUB_STEP_SUMMARY
       shell: bash
