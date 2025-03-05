@@ -1,0 +1,3 @@
+Test: testPageTitlePlaywright - Status: PASSED
+Test: testSearchFunctionality - Status: FAILED
+Test: testNavigationToAPIPage - Status: PASSED
