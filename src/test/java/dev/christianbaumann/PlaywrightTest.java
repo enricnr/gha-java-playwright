@@ -96,6 +96,7 @@ public class PlaywrightTest {
 
         // Assert
 //        assertTrue(page.url().contains("api"), "API page should be opened");
+
         assertFalse(page.url().contains("api"), "API page should be opened");
         logTestInfo(testInfo, "✅ Navigation to API page successful.");
     }
