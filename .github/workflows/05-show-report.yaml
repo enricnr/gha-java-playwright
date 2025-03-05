@@ -39,4 +39,10 @@ jobs:
       - name: Display Test Report
         uses: phoenix-actions/test-reporting@v15
         with:
-          path: target/reports/surefire.html
+          name: 'Publish test report (surefire)'  # The title of the report in the summary.
+          path: target/surefire-reports/TEST*.xml  # Specifies the test results file(s).
+          reporter: java-junit  # Specifies the report format.
+          list-tests: all  # Displays details of all tests in the summary.
+          list-suites: all  # Displays test suite details.
+          fail-on-error: true  # Fails the workflow if the report contains errors.
+          output-to: 'step-summary'  # Displays the report in the GitHub Actions summary tab.

@@ -1,7 +1,7 @@
-name: Run Playwright Tests with Cache and Upload Reports
+name: Run Playwright Tests with Cache on Pull Requests
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -35,12 +35,4 @@ jobs:
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
 
       - name: Run Playwright tests
-        run: mvn test surefire-report:report
-
-      - name: Upload Test Reports  # Uploads test results as artifacts for later review.
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-artifacts  # The artifact name displayed in GitHub Actions.
-          path: |
-            target/reports  # Directory containing Playwright reports.
-            target/surefire-reports  # Directory containing Maven's Surefire test reports.
+        run: mvn test
